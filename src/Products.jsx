@@ -2,6 +2,8 @@ import { useState } from "react";
 import Spinner from "./Spinner";
 import useFetch from "./services/useFetch";
 import { useParams } from "react-router-dom";
+import PageNotFound from "./PageNotFound";
+import { Link } from "react-router-dom";
 
 export default function Products() {
   const [size, setSize] = useState("");
@@ -16,11 +18,11 @@ export default function Products() {
   function renderProduct(p) {
     return (
       <div key={p.id} className="product">
-        <a href="/">
+        <Link to={`/${category}/${p.id}`}>
           <img src={`/images/${p.image}`} alt={p.name} />
           <h3>{p.name}</h3>
           <p>${p.price}</p>
-        </a>
+        </Link>
       </div>
     );
   }
@@ -31,6 +33,7 @@ export default function Products() {
 
   if (error) throw error;
   if (loading) return <Spinner />;
+  if (products.length === 0) return <PageNotFound />;
 
   return (
     <>
