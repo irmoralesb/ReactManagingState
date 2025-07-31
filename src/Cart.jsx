@@ -5,6 +5,9 @@ import Spinner from "./Spinner";
 
 export default function Cart({ cart, updateQuantity }) {
   const navigate = useNavigate();
+
+  //2) Every time the cart is render the urls are created, this is an issue for
+  //useFetchAll(urls); in the useFectAll.js file if the final array contains the urls
   const urls = cart.map((i) => `products/${i.id}`);
   const { data: products, loading, error } = useFetchAll(urls);
 
