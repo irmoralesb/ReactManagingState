@@ -60,20 +60,6 @@
     }
   ],
   "shippingAddress": [
-    {
-      "id": 1,
-      "city": "",
-      "country": ""
-    },
-    {
-      "city": "",
-      "country": "",
-      "id": 2
-    },
-    {
-      "city": "sdfsf",
-      "country": "India",
-      "id": 3
-    }
+    
   ]
 }

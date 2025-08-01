@@ -49,7 +49,7 @@ export default function Products() {
           <option value="8">8</option>
           <option value="9">9</option>
         </select>
-        {size && <h2>Found {filteredProducts.length} items.</h2>}
+        {size && <h2>Found {filteredProducts.length} items</h2>}
       </section>
       <section id="products">{filteredProducts.map(renderProduct)}</section>
     </>

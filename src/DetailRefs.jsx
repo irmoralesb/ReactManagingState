@@ -4,9 +4,9 @@ import useFetch from "./services/useFetch";
 import Spinner from "./Spinner";
 import PageNotFound from "./PageNotFound";
 
-export default function Detail({ addToCart }) {
+export default function Detail(props) {
   const { id } = useParams();
-  const skyRef = useRef();
+  const skuRef = useRef();
   const navigate = useNavigate();
   const { data: product, loading, error } = useFetch(`products/${id}`);
 
@@ -20,7 +20,7 @@ export default function Detail({ addToCart }) {
       <p>{product.description}</p>
       <p id="price">${product.price}</p>
 
-      <select id="size" ref={skyRef}>
+      <select id="size" ref={skuRef}>
         <option value="">What size?</option>
         {product.skus.map((s) => (
           <option key={s.sku} value={s.sku}>
@@ -33,16 +33,16 @@ export default function Detail({ addToCart }) {
         <button
           className="btn btn-primary"
           onClick={() => {
-            const sku = skyRef.current.value;
+            const sku = skuRef.current.value;
             if (!sku) return alert("Select a size!");
-            addToCart(id, sku);
+            props.addToCart(id, sku);
             navigate("/cart");
           }}
         >
           Add to cart
         </button>
       </p>
-      <img src={`/images/${product.image}`} alt="{product.name" />
+      <img src={`/images/${product.image}`} alt={product.category} />
     </div>
   );
 }

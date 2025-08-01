@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 
 const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
-export default function useFecth(url) {
+export default function useFetch(url) {
     const isMounted = useRef(false);
     const [data, setData] = useState([]);
     const [error, setError] = useState(null);

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { saveShippingAddress } from "./services/shippingService";
 
 const STATUS = {
@@ -14,7 +13,7 @@ const emptyAddress = {
   country: "",
 };
 
-export default function Checkout({ cart, emptyCart }) {
+export default function Checkout({ cart, dispatch }) {
   const [address, setAddress] = useState(emptyAddress);
   const [status, setStatus] = useState(STATUS.IDLE);
   const [saveError, setSaveError] = useState(null);
@@ -45,7 +44,7 @@ export default function Checkout({ cart, emptyCart }) {
     if (isValid) {
       try {
         await saveShippingAddress(address);
-        emptyCart();
+        dispatch({ type: "empty" });
         setStatus(STATUS.COMPLETED);
       } catch (e) {
         setSaveError(e);
@@ -70,7 +69,7 @@ export default function Checkout({ cart, emptyCart }) {
       <h1>Shipping Info</h1>
       {!isValid && status === STATUS.SUBMITTED && (
         <div role="alert">
-          <p>Please fixt the following errors</p>
+          <p>Please fix the following errors:</p>
           <ul>
             {Object.keys(errors).map((key) => {
               return <li key={key}>{errors[key]}</li>;
@@ -89,10 +88,11 @@ export default function Checkout({ cart, emptyCart }) {
             onBlur={handleBlur}
             onChange={handleChange}
           />
+          <p role="alert">
+            {(touched.city || status === STATUS.SUBMITTED) && errors.city}
+          </p>
         </div>
-        <p role="alert">
-          {(touched.city || status === STATUS.SUBMITTED) && errors.city}
-        </p>
+
         <div>
           <label htmlFor="country">Country</label>
           <br />
@@ -108,16 +108,18 @@ export default function Checkout({ cart, emptyCart }) {
             <option value="United Kingdom">United Kingdom</option>
             <option value="USA">USA</option>
           </select>
+
+          <p role="alert">
+            {(touched.country || status === STATUS.SUBMITTED) && errors.country}
+          </p>
         </div>
-        <p role="alert">
-          {(touched.country || status === STATUS.SUBMITTED) && errors.country}
-        </p>
+
         <div>
           <input
             type="submit"
             className="btn btn-primary"
             value="Save Shipping Info"
-            disabled={status == STATUS.SUBMITTING}
+            disabled={status === STATUS.SUBMITTING}
           />
         </div>
       </form>
