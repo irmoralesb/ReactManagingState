@@ -1,13 +1,10 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import useFetchAll from "./services/useFetchAll";
 import Spinner from "./Spinner";
+import { useNavigate } from "react-router-dom";
 
 export default function Cart({ cart, dispatch }) {
   const navigate = useNavigate();
-
-  //2) Every time the cart is render the urls are created, this is an issue for
-  //useFetchAll(urls); in the useFectAll.js file if the final array contains the urls
   const urls = cart.map((i) => `products/${i.id}`);
   const { data: products, loading, error } = useFetchAll(urls);
 
@@ -59,8 +56,8 @@ export default function Cart({ cart, dispatch }) {
     <section id="cart">
       <h1>
         {numItemsInCart === 0
-          ? "Cart empty"
-          : `${numItemsInCart} Item${numItemsInCart > 1 ? "s" : ""} in my cart`}
+          ? "Your cart is empty"
+          : `${numItemsInCart} Item${numItemsInCart > 1 ? "s" : ""} in My Cart`}
       </h1>
       <ul>{cart.map(renderItem)}</ul>
       {cart.length > 0 && (

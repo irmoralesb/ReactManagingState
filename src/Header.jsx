@@ -21,7 +21,7 @@ export default function Header() {
             </NavLink>
           </li>
           <li>
-            <NavLink activeStyle={activeStyle} to="/Cart">
+            <NavLink activeStyle={activeStyle} to="/cart">
               Cart
             </NavLink>
           </li>

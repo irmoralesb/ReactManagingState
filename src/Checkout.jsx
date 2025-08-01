@@ -7,6 +7,7 @@ const STATUS = {
   SUBMITTING: "SUBMITTING",
   COMPLETED: "COMPLETED",
 };
+
 // Declaring outside component to avoid recreation on each render
 const emptyAddress = {
   city: "",
@@ -24,6 +25,7 @@ export default function Checkout({ cart, dispatch }) {
   const isValid = Object.keys(errors).length === 0;
 
   function handleChange(e) {
+    e.persist(); // persist the event
     setAddress((curAddress) => {
       return {
         ...curAddress,
@@ -33,6 +35,7 @@ export default function Checkout({ cart, dispatch }) {
   }
 
   function handleBlur(event) {
+    event.persist();
     setTouched((cur) => {
       return { ...cur, [event.target.id]: true };
     });
@@ -62,7 +65,9 @@ export default function Checkout({ cart, dispatch }) {
   }
 
   if (saveError) throw saveError;
-  if (status === STATUS.COMPLETED) return <h1>Thanks for shopping!</h1>;
+  if (status === STATUS.COMPLETED) {
+    return <h1>Thanks for shopping!</h1>;
+  }
 
   return (
     <>

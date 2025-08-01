@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Spinner from "./Spinner";
 import useFetch from "./services/useFetch";
 import { useParams } from "react-router-dom";

@@ -60,6 +60,15 @@
     }
   ],
   "shippingAddress": [
-    
+    {
+      "id": 1,
+      "city": "",
+      "country": ""
+    },
+    {
+      "city": "Mexico",
+      "country": "China",
+      "id": 2
+    }
   ]
 }

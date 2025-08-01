@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 
-// 3) you can use a ref to store the previous value passed in (avoiding infinite renders)
 export default function useFetchAll(urls) {
   const prevUrls = useRef([]);
   const [data, setData] = useState(null);
@@ -9,10 +8,7 @@ export default function useFetchAll(urls) {
 
   useEffect(() => {
     // Only run if the array of URLs passed in changes
-    if (areEqual(prevUrls.current, urls)) {
-      setLoading(false);
-      return;
-    }
+    if (areEqual(prevUrls.current, urls)) return;
 
     prevUrls.current = urls;
 
@@ -31,8 +27,6 @@ export default function useFetchAll(urls) {
       })
       .finally(() => setLoading(false));
   }, [urls]);
-  // 1) Having urls will create infinite loop because the array of urls is recreated in every render
-  // Example of this on Cart.jsx where urls is assigned and using fetchall
 
   return { data, loading, error };
 }

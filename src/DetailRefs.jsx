@@ -10,9 +10,9 @@ export default function Detail(props) {
   const navigate = useNavigate();
   const { data: product, loading, error } = useFetch(`products/${id}`);
 
-  if (error) throw error;
-  if (!product) return <PageNotFound />;
   if (loading) return <Spinner />;
+  if (!product) return <PageNotFound />;
+  if (error) throw error;
 
   return (
     <div id="detail">
@@ -34,7 +34,7 @@ export default function Detail(props) {
           className="btn btn-primary"
           onClick={() => {
             const sku = skuRef.current.value;
-            if (!sku) return alert("Select a size!");
+            if (!sku) return alert("Select size.");
             props.addToCart(id, sku);
             navigate("/cart");
           }}

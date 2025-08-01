@@ -10,9 +10,9 @@ export default function Detail(props) {
   const [sku, setSku] = useState("");
   const { data: product, loading, error } = useFetch(`products/${id}`);
 
-  if (error) throw error;
-  if (!product) return <PageNotFound />;
   if (loading) return <Spinner />;
+  if (!product) return <PageNotFound />;
+  if (error) throw error;
 
   return (
     <div id="detail">
